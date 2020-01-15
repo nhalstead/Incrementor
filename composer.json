@@ -1,0 +1,21 @@
+{
+    "name": "nhalstead/incrementor",
+    "description": "",
+    "keywords": ["generate", "formula"],
+    "license": "GPL-3.0",
+    "type": "library",
+    "authors": [
+        {
+            "name": "Noah Halstead",
+            "email": "nhalstead00@gmail.com"
+        }
+    ],
+    "require": {
+        "tightenco/collect": "^6.11"
+    },
+    "autoload": {
+        "psr-4": {
+            "nhalstead\\Incrementor\\": "src/Incrementor"
+        }
+    }
+}
