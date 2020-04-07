@@ -1,6 +1,6 @@
 <?php
 
-namespace nhaltead\Incrementor;
+namespace nhalstead\Incrementor;
 
 use stdClass;
 use JsonSerializable;
