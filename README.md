@@ -12,7 +12,7 @@ Basic & Fast Usage of the library:
 use \nhalstead\Incrementor;
 
 // Using the Get Methtod you can get a collection of the output.
-$generated = Incrementor('TEST_{0000^}')::get();
+$generated = Incrementor::get('TEST_{0000^}', 10);
 
 ?>
 ```
