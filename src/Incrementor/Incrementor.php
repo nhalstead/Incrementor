@@ -2,7 +2,6 @@
 
 namespace nhalstead\Incrementor;
 
-use stdClass;
 use JsonSerializable;
 use Tightenco\Collect\Support\Collection;
 
@@ -48,11 +47,10 @@ class Incrementor implements JsonSerializable
     /**
      *
      * @param string $expression
-     * @return stdClass
+     * @return Expression
      */
     public static function getExpressionParts(string $expression)
     {
-        $return = new stdClass;
 
         // What can be before and after the Number Expression
         $allowedChars = "a-zA-Z0-9\s\_\-\(\)\{\}\~\:\>\<\/\\\\\|\]\[";
@@ -60,12 +58,17 @@ class Incrementor implements JsonSerializable
         $re = '/([' . $allowedChars . ']*)\{(([0-9]*)\^([0-9]*))\}([' . $allowedChars . ']*)/m';
         preg_match_all($re, $expression, $matches, PREG_SET_ORDER, 0);
 
+        $return = new Expression();
         $return->expression = $expression;
-        $return->prefix = $matches[0][1];
-        $return->incrementor = $matches[0][2]; // The Number Generating Parts
-        $return->start = intval($matches[0][3]);
-        $return->length = strlen($matches[0][3]);
-        $return->suffix = $matches[0][5];
+
+        if(count($matches) !== 0)
+        {
+            $return->prefix = $matches[0][1];
+            $return->incrementor = $matches[0][2]; // The Number Generating Parts
+            $return->start = intval($matches[0][3]);
+            $return->length = strlen($matches[0][3]);
+            $return->suffix = $matches[0][5];
+        }
 
         return $return;
     }
@@ -144,7 +147,7 @@ class Incrementor implements JsonSerializable
      *  Generates the Output using the format given.
      *
      */
-    public function generate()
+    private function generate()
     {
         $this->results = new Collection();
         $iterationStep = 0;
